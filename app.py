@@ -1,6 +1,7 @@
 import os
 
 from flask import Flask, make_response, jsonify, request, session
+from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_restful import Api, Resource
 from flask_bcrypt import Bcrypt
@@ -8,7 +9,6 @@ from flask_bcrypt import Bcrypt
 from models import db, User
 
 app = Flask(__name__)
-# app.secret_key = ''
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URI')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.json.compact = False
@@ -53,6 +53,7 @@ class Login(Resource):
 
 api.add_resource(CheckSession, '/check_session')
 api.add_resource(ClearSession, '/clear_session')
+api.add_resource(Login, '/login')
 
 if __name__ == "__main__":
     app.run(debug=False)

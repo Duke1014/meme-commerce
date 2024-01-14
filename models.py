@@ -3,7 +3,8 @@ from sqlalchemy import MetaData
 from sqlalchemy_serializer import SerializerMixin
 from sqlalchemy.ext.hybrid import hybrid_property
 
-from app import bcrypt, hashlib
+# from app import bcrypt
+import hashlib
 
 metadata = MetaData(naming_convention={
     'fk': 'fk_%(table_name)s_%(column_0_name)s_%(referred_table_name)s',
