@@ -3,7 +3,7 @@ from sqlalchemy import MetaData
 from sqlalchemy_serializer import SerializerMixin
 from sqlalchemy.ext.hybrid import hybrid_property
 
-# from app import bcrypt
+from app import bcrypt
 import hashlib
 
 metadata = MetaData(naming_convention={
@@ -45,3 +45,23 @@ class User(db.Model, SerializerMixin):
     def authenticate_email(self, email):
         hashed_email = hash_email(email)
         return self.hashed_email == hashed_email
+    
+class Meme(db.Model, SerializerMixin):
+    __tablename__ = 'memes'
+
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String, nullable=False)
+    image_url = db.Column(db.String, nullable=False)
+    price = db.Column(db.Float, nullable=False)
+
+class Cart_items(db.Model, SerializerMixin):
+    __tablename__ = 'cart_items'
+
+    id = db.Column(db.Integer, primary_key=True)
+    quantity = db.Column(db.Integer, nullable=False, default=1)
+
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    user = db.relationship('User', backref=db.backref('cart_items', lazy=True))
+
+    meme_id = db.Column(db.Integer, db.ForeignKey('memes.id'), nullable=False)
+    meme = db.relationship('Meme', backref=db.backref('cart_items', lazy=True))
