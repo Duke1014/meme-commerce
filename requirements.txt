@@ -23,3 +23,4 @@ SQLAlchemy-serializer==1.4.1
 typing_extensions==4.9.0
 Werkzeug==3.0.1
 zipp==3.17.0
+gunicorn==21.2.0
